@@ -18,8 +18,6 @@ public class MainClass {
             System.exit(1);
         }
 
-
-
             while (true) {
 
                 System.out.println("Select your Choice : ");
@@ -28,6 +26,7 @@ public class MainClass {
                 System.out.println("2. view product");
                 System.out.println("3. Add order");
                 System.out.println("4. view order");
+                System.out.println("5. Exit");
                 System.out.println(">>>>");
                 Scanner sc = new Scanner(System.in);
                 int choice = sc.nextInt();
@@ -54,11 +53,14 @@ public class MainClass {
                     client2.initializeConnection();
                     client2.processUserRequests();
                     client2.closeConnection();
-                }
+                }else if (choice == 5){
+                    System.out.println("Thank you!");
+                    System.exit(1);
+               }
 
-                } catch (Exception ex) {
+               } catch (Exception ex) {
                     System.out.println("Invalid operation");
-                }
+               }
             }
     }
 }
