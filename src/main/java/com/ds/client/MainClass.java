@@ -20,7 +20,7 @@ public class MainClass {
 
             while (true) {
 
-                System.out.println("Select your Choice : ");
+                System.out.println("\n \nSelect your Choice : ");
 
                 System.out.println("1. Add product");
                 System.out.println("2. view product");
