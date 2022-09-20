@@ -8,41 +8,62 @@ import com.ds.client.product.SetProductQuantityServiceClient;
 import java.util.Scanner;
 
 public class MainClass {
-    public static void main(String[] args) throws InterruptedException,NumberFormatException {
-
+    public static void main(String[] args) throws InterruptedException, NumberFormatException {
 
         String host = args[0];
         int port = Integer.parseInt(args[1].trim());
-        String operation = args[2];
 
-        if (args.length != 3) {
-            System.out.println("Usage CheckBalanceServiceClient <host> <port> <s(et)|c(heck)");
+        if (args.length != 2) {
+            System.out.println("Usage CheckBalanceServiceClient <host> <port>");
             System.exit(1);
         }
 
-        if ("sp".equals(operation)) {
-            SetProductQuantityServiceClient client3 = new SetProductQuantityServiceClient(host, port);
-            client3.initializeConnection();
-            client3.processUserRequests();
-            client3.closeConnection();
-        }
-        else if("vp".equals(operation)){
-            CheckProductQuantityServiceClient client4 = new CheckProductQuantityServiceClient(host, port);
-            client4.initializeConnection();
-            client4.processUserRequests();
-            client4.closeConnection();
-        }else if("so".equals(operation)){
-            SetOrderServiceClient client1 = new SetOrderServiceClient(host, port);
-            client1.initializeConnection();
-            client1.processUserRequests();
-            client1.closeConnection();
 
-        }else if("vo".equals(operation)){
-            CheckOrderServiceClient client2 = new CheckOrderServiceClient(host, port);
-            client2.initializeConnection();
-            client2.processUserRequests();
-            client2.closeConnection();
-        }
+
+            while (true) {
+
+                System.out.println("Select your Choice : ");
+
+                System.out.println("1. Add product");
+                System.out.println("2. view product");
+                System.out.println("3. Add order");
+                System.out.println("4. view order");
+                System.out.println(">>>>");
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
+
+                try {
+                if (choice == 1) {
+                    SetProductQuantityServiceClient client3 = new SetProductQuantityServiceClient(host, port);
+                    client3.initializeConnection();
+                    client3.processUserRequests();
+                    client3.closeConnection();
+                } else if (choice == 2) {
+                    CheckProductQuantityServiceClient client4 = new CheckProductQuantityServiceClient(host, port);
+                    client4.initializeConnection();
+                    client4.processUserRequests();
+                    client4.closeConnection();
+                } else if (choice == 3) {
+                    SetOrderServiceClient client1 = new SetOrderServiceClient(host, port);
+                    client1.initializeConnection();
+                    client1.processUserRequests();
+                    client1.closeConnection();
+
+                } else if (choice == 4) {
+                    CheckOrderServiceClient client2 = new CheckOrderServiceClient(host, port);
+                    client2.initializeConnection();
+                    client2.processUserRequests();
+                    client2.closeConnection();
+                }
+
+                } catch (Exception ex) {
+                    System.out.println("Invalid operation");
+                }
+            }
+    }
+}
+
+
 
 
 
@@ -89,5 +110,5 @@ public class MainClass {
 //                client4.closeConnection();
 //
 //        }
-    }
-}
+ //   }
+//}

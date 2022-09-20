@@ -33,7 +33,6 @@ public class CheckProductQuantityServiceClient {
     }
 
     public void processUserRequests() throws InterruptedException {
-        while (true) {
             Scanner userInput = new Scanner(System.in);
             System.out.println("\nEnter Product ID to check the quantity :");
             String productId = userInput.nextLine().trim();
@@ -45,6 +44,5 @@ public class CheckProductQuantityServiceClient {
             CheckProductQuantityResponse response = clientStub.checkProductQuantity(request);
             System.out.printf("Product quantity " + response.getProductQuantity());
             Thread.sleep(1000);
-        }
     }
 }

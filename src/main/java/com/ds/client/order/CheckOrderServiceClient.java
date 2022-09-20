@@ -31,11 +31,11 @@ public class CheckOrderServiceClient {
     }
 
     public void processUserRequests() throws InterruptedException {
-        while (true) {
+
             Scanner userInput = new Scanner(System.in);
             System.out.println("\nEnter Order Id to check :");
             String orderId = userInput.nextLine().trim();
-            System.out.println("Requesting server to check the order for " + orderId.toString());
+            System.out.println("Requesting server to check the order for " + orderId);
             CheckOrderRequest request = CheckOrderRequest
                     .newBuilder()
                     .setOrderId(orderId)
@@ -43,6 +43,5 @@ public class CheckOrderServiceClient {
             CheckOrderResponse response = clientStub.checkOrders(request);
             System.out.printf("my order is " + response.getProductName() + " - " + response.getProductQuantity());
             Thread.sleep(1000);
-        }
     }
 }

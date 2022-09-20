@@ -30,7 +30,6 @@ public class SetOrderServiceClient {
     }
 
     public void processUserRequests() throws InterruptedException {
-        while (true) {
             Scanner userInput = new Scanner(System.in);
             System.out.println("\nEnter Order Id, Product name and quantity (orderId,productName,quantity) :");
             String input[] = userInput.nextLine().trim().split(",");
@@ -48,6 +47,5 @@ public class SetOrderServiceClient {
             SetOrderResponse response = clientStub.setOrders(request);
             System.out.printf("Transaction Status " + (response.getStatus() ? "Sucessful" : "Failed"));
             Thread.sleep(1000);
-        }
     }
 }
