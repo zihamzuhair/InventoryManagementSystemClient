@@ -5,70 +5,67 @@ import com.ds.client.order.SetOrderServiceClient;
 import com.ds.client.product.CheckProductQuantityServiceClient;
 import com.ds.client.product.SetProductQuantityServiceClient;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainClass {
-    public static void main(String[] args) throws InterruptedException, NumberFormatException {
 
-        String host = args[0];
-        int port = Integer.parseInt(args[1].trim());
+    public static void main(String[] args) throws InterruptedException, NumberFormatException, IOException {
 
-        if (args.length != 2) {
-            System.out.println("Usage CheckBalanceServiceClient <host> <port>");
-            System.exit(1);
-        }
+//        String host = args[0];
+//        int port = Integer.parseInt(args[1].trim());
 
-            while (true) {
+//        if (args.length != 2) {
+//            System.out.println("Usage CheckBalanceServiceClient <host> <port>");
+//            System.exit(1);
+//        }
 
-                System.out.println("\n \nSelect your Choice : ");
+        while (true) {
 
-                System.out.println("1. Add product");
-                System.out.println("2. view product");
-                System.out.println("3. Add order");
-                System.out.println("4. view order");
-                System.out.println("5. Exit");
-                System.out.println(">>>>");
-                Scanner sc = new Scanner(System.in);
-                int choice = sc.nextInt();
+            System.out.println("\n \nSelect your Choice : ");
 
-                try {
+            System.out.println("1. Add product");
+            System.out.println("2. view product");
+            System.out.println("3. Add order");
+            System.out.println("4. view order");
+            System.out.println("5. Exit");
+            System.out.println(">>>>");
+            Scanner sc = new Scanner(System.in);
+            int choice = sc.nextInt();
+
+            try {
                 if (choice == 1) {
-                    SetProductQuantityServiceClient client3 = new SetProductQuantityServiceClient(host, port);
+                    SetProductQuantityServiceClient client3 = new SetProductQuantityServiceClient();
                     client3.initializeConnection();
                     client3.processUserRequests();
                     client3.closeConnection();
                 } else if (choice == 2) {
-                    CheckProductQuantityServiceClient client4 = new CheckProductQuantityServiceClient(host, port);
+                    CheckProductQuantityServiceClient client4 = new CheckProductQuantityServiceClient();
                     client4.initializeConnection();
                     client4.processUserRequests();
                     client4.closeConnection();
                 } else if (choice == 3) {
-                    SetOrderServiceClient client1 = new SetOrderServiceClient(host, port);
+                    SetOrderServiceClient client1 = new SetOrderServiceClient();
                     client1.initializeConnection();
                     client1.processUserRequests();
                     client1.closeConnection();
 
                 } else if (choice == 4) {
-                    CheckOrderServiceClient client2 = new CheckOrderServiceClient(host, port);
+                    CheckOrderServiceClient client2 = new CheckOrderServiceClient();
                     client2.initializeConnection();
                     client2.processUserRequests();
                     client2.closeConnection();
-                }else if (choice == 5){
+                } else if (choice == 5) {
                     System.out.println("Thank you!");
                     System.exit(1);
-               }
+                }
 
-               } catch (Exception ex) {
-                    System.out.println("Invalid operation");
-               }
+            } catch (Exception ex) {
+                System.out.println("Invalid operation");
             }
+        }
     }
 }
-
-
-
-
-
 
 
 //
@@ -112,5 +109,5 @@ public class MainClass {
 //                client4.closeConnection();
 //
 //        }
- //   }
+//   }
 //}
