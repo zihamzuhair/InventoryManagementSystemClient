@@ -27,6 +27,7 @@ message SetProductQuantityRequest {
 
 message SetProductQuantityResponse {
     bool status = 1;
+
 }
 
 service SetProductQuantityService {
@@ -61,6 +62,7 @@ message SetOrderRequest {
 
 message SetOrderResponse {
     bool status = 1;
+    double remainingQuantity = 2;
 }
 
 service SetOrderService {

@@ -36,8 +36,7 @@ public class SetOrderServiceClient {
             String orderId = input[0];
             String productName = input[1];
             double quantity = Double.parseDouble(input[2]);
-            System.out.println("Requesting server to set the quantity to " + quantity + " for " + productName + "order id" + orderId);
-            SetOrderRequest request = SetOrderRequest
+              SetOrderRequest request = SetOrderRequest
                     .newBuilder()
                     .setOrderId(orderId)
                     .setProductName(productName)
@@ -45,7 +44,15 @@ public class SetOrderServiceClient {
                     .setIsSentByPrimary(false)
                     .build();
             SetOrderResponse response = clientStub.setOrders(request);
-            System.out.printf("Transaction Status " + (response.getStatus() ? "Sucessful" : "Failed"));
+
+            if(response.getStatus()){
+              System.out.println("Thank you for your order. your order id is " + orderId);
+              System.out.printf("\nTransaction Status " + (response.getStatus() ? "Successful" : "Failed"));
+            }else{
+                System.out.printf("Order cancelled. Due to unavailable quantity");
+                System.out.println("\nQuantity balance for " + productName + " is "+ response.getRemainingQuantity());
+            }
+
             Thread.sleep(1000);
     }
 }
