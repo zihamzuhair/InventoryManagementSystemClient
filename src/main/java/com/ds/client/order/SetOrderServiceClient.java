@@ -1,6 +1,8 @@
 package com.ds.client.order;
 
-import ds.inventoryManagementSystem.grpc.generated.*;
+import ds.inventoryManagementSystem.grpc.generated.SetOrderRequest;
+import ds.inventoryManagementSystem.grpc.generated.SetOrderResponse;
+import ds.inventoryManagementSystem.grpc.generated.SetOrderServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -17,7 +19,7 @@ public class SetOrderServiceClient {
         this.port = port;
     }
 
-    public void initializeConnection () {
+    public void initializeConnection() {
         System.out.println("Initializing Connecting to server at " + host + ":" +
                 port);
         channel = ManagedChannelBuilder.forAddress("localhost", port)
@@ -25,34 +27,34 @@ public class SetOrderServiceClient {
                 .build();
         clientStub = SetOrderServiceGrpc.newBlockingStub(channel);
     }
-    public void closeConnection() {
-        channel.shutdown();
-    }
 
     public void processUserRequests() throws InterruptedException {
-            Scanner userInput = new Scanner(System.in);
-            System.out.println("\nEnter Order Id, Product name and quantity (orderId,productName,quantity) :");
-            String input[] = userInput.nextLine().trim().split(",");
-            String orderId = input[0];
-            String productName = input[1];
-            double quantity = Double.parseDouble(input[2]);
-              SetOrderRequest request = SetOrderRequest
-                    .newBuilder()
-                    .setOrderId(orderId)
-                    .setProductName(productName)
-                    .setProductQuantity(quantity)
-                    .setIsSentByPrimary(false)
-                    .build();
-            SetOrderResponse response = clientStub.setOrders(request);
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("\nEnter Order Id, Item and quantity (orderId,itemDescription,quantity) :");
+        String input[] = userInput.nextLine().trim().split(",");
+        String orderId = input[0];
+        String itemDescription = input[1];
+        double quantity = Double.parseDouble(input[2]);
+        SetOrderRequest request = SetOrderRequest
+                .newBuilder()
+                .setOrderId(orderId)
+                .setItemDescription(itemDescription)
+                .setItemQuantity(quantity)
+                .setIsSentByPrimary(false)
+                .build();
+        SetOrderResponse response = clientStub.setOrders(request);
 
-            if(response.getStatus()){
-              System.out.println("Thank you for your order. your order id is " + orderId);
-              System.out.printf("\nTransaction Status " + (response.getStatus() ? "Successful" : "Failed"));
-            }else{
-                System.out.printf("Order cancelled. Due to unavailable quantity");
-                System.out.println("\nQuantity balance for " + productName + " is "+ response.getRemainingQuantity());
-            }
+        if (response.getStatus()) {
+            System.out.println("Thank you for your order. your order id is " + orderId);
+            System.out.printf("\nTransaction Status " + (response.getStatus() ? "Successful" : "Failed"));
+        } else {
+            System.out.printf("Order cancelled. Due to unavailable quantity");
+            System.out.println("\nQuantity balance for " + itemDescription + " is " + response.getRemainingQuantity());
+        }
+        Thread.sleep(1000);
+    }
 
-            Thread.sleep(1000);
+    public void closeConnection() {
+        channel.shutdown();
     }
 }
